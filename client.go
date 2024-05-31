@@ -1,7 +1,5 @@
 package devicecheck
 
-import "net/http"
-
 // Client provides methods to use DeviceCheck API.
 type Client struct {
 	api  api
@@ -10,19 +8,13 @@ type Client struct {
 }
 
 // New returns a new DeviceCheck API client.
-func New(cred Credential, cfg Config) *Client {
-	return &Client{
-		api:  newAPI(cfg.env),
-		cred: cred,
-		jwt:  newJWT(cfg.issuer, cfg.keyID),
-	}
-}
+func New(cred Credential, cfg Config, options ...Option) *Client {
 
-// NewWithHTTPClient returns a new DeviceCheck API client with specified http client.
-func NewWithHTTPClient(httpClient *http.Client, cred Credential, cfg Config) *Client {
-	return &Client{
-		api:  newAPIWithHTTPClient(httpClient, cfg.env),
+	c := &Client{
+		api:  newAPI(cfg.env, options...),
 		cred: cred,
 		jwt:  newJWT(cfg.issuer, cfg.keyID),
 	}
+
+	return c
 }

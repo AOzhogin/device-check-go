@@ -27,6 +27,14 @@ cred := devicecheck.NewCredentialFile("/path/to/private/key/file") // You can cr
 cfg := devicecheck.NewConfig("ISSUER", "KEY_ID", devicecheck.Development)
 client := devicecheck.New(cred, cfg)
 ````
+### Options
+
+WithCustomHttpClient - set your custom http client
+WithCustomBaseURLs - change base url (this option more priority)
+
+```go
+client := New(creds, cfg, WithCustomBaseURLs("https://google.com/api/v1"))
+```
 
 ### Use DeviceCheck API
 

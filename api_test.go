@@ -86,55 +86,6 @@ func Test_newAPI(t *testing.T) {
 	}
 }
 
-func Test_newAPIWithHTTPClient(t *testing.T) {
-	t.Parallel()
-
-	client := new(http.Client)
-	cases := map[string]struct {
-		client *http.Client
-		env    Environment
-		want   api
-	}{
-		"development": {
-			client: client,
-			env:    Development,
-			want: api{
-				client:  client,
-				baseURL: "https://api.development.devicecheck.apple.com/v1",
-			},
-		},
-		"production": {
-			client: client,
-			env:    Production,
-			want: api{
-				client:  client,
-				baseURL: "https://api.devicecheck.apple.com/v1",
-			},
-		},
-		"unknown environment": {
-			client: client,
-			env:    -1,
-			want: api{
-				client:  client,
-				baseURL: "https://api.development.devicecheck.apple.com/v1",
-			},
-		},
-	}
-
-	for name, c := range cases {
-		c := c
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			got := newAPIWithHTTPClient(c.client, c.env)
-
-			if !reflect.DeepEqual(got, c.want) {
-				t.Errorf("want '%+v', got '%+v'", c.want, got)
-			}
-		})
-	}
-}
-
 func TestAPI_do(t *testing.T) {
 	t.Parallel()
 

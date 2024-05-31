@@ -30,18 +30,18 @@ type api struct {
 	baseURL string
 }
 
-func newAPI(env Environment) api {
-	return api{
+func newAPI(env Environment, options ...Option) api {
+
+	a := &api{
 		client:  http.DefaultClient,
 		baseURL: newBaseURL(env),
 	}
-}
 
-func newAPIWithHTTPClient(client *http.Client, env Environment) api {
-	return api{
-		client:  client,
-		baseURL: newBaseURL(env),
+	for _, option := range options {
+		option(a)
 	}
+
+	return *a
 }
 
 func (api api) do(ctx context.Context, jwt, path string, requestBody interface{}) (int, string, error) {

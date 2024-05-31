@@ -14,9 +14,9 @@ func TestNewCredentialFile(t *testing.T) {
 		want     credentialFile
 	}{
 		"valid filename": {
-			filename: "revoked_private_key.p8",
+			filename: "./tests/revoked_private_key.p8",
 			want: credentialFile{
-				filename: "revoked_private_key.p8",
+				filename: "./tests/revoked_private_key.p8",
 			},
 		},
 	}
@@ -44,7 +44,7 @@ func TestCredentialFile_key(t *testing.T) {
 	}{
 		"valid credential": {
 			cred: credentialFile{
-				filename: "revoked_private_key.p8",
+				filename: "./tests/revoked_private_key.p8",
 			},
 			noErr: true,
 		},
@@ -56,7 +56,7 @@ func TestCredentialFile_key(t *testing.T) {
 		},
 		"unknown filename": {
 			cred: credentialFile{
-				filename: "unknown_file.p8",
+				filename: "./tests/unknown_file.p8",
 			},
 			noErr: false,
 		},
@@ -95,7 +95,7 @@ func TestNewCredentialBytes(t *testing.T) {
 		filename string
 	}{
 		"valid filename": {
-			filename: "revoked_private_key.p8",
+			filename: "./tests/revoked_private_key.p8",
 		},
 	}
 
@@ -127,11 +127,11 @@ func TestCredentialBytes_key(t *testing.T) {
 		noErr    bool
 	}{
 		"valid filename": {
-			filename: "revoked_private_key.p8",
+			filename: "./tests/revoked_private_key.p8",
 			noErr:    true,
 		},
 		"invalid private key": {
-			filename: "invalid_private_key.p8",
+			filename: "./tests/invalid_private_key.p8",
 			noErr:    false,
 		},
 	}
@@ -175,7 +175,7 @@ func TestNewCredentialString(t *testing.T) {
 		filename string
 	}{
 		"valid filename": {
-			filename: "revoked_private_key.p8",
+			filename: "./tests/revoked_private_key.p8",
 		},
 	}
 
@@ -207,7 +207,7 @@ func TestCredentialString_key(t *testing.T) {
 		noErr    bool
 	}{
 		"valid credential": {
-			filename: "revoked_private_key.p8",
+			filename: "./tests/revoked_private_key.p8",
 			noErr:    true,
 		},
 		"invalid credential": {

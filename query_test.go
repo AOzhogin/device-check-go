@@ -125,10 +125,10 @@ func TestClient_QueryTwoBits(t *testing.T) {
 		},
 		"status ok with ErrBitStateNotFound": {
 			client: Client{
-				api: newAPIWithHTTPClient(newMockHTTPClient(&http.Response{
+				api: newAPI(Development, WithCustomHttpClient(newMockHTTPClient(&http.Response{
 					StatusCode: http.StatusOK,
 					Body:       io.NopCloser(strings.NewReader("Failed to find bit state")),
-				}), Development),
+				}))),
 				cred: NewCredentialFile("revoked_private_key.p8"),
 				jwt:  newJWT("issuer", "keyID"),
 			},
@@ -136,10 +136,10 @@ func TestClient_QueryTwoBits(t *testing.T) {
 		},
 		"status ok with valid response": {
 			client: Client{
-				api: newAPIWithHTTPClient(newMockHTTPClient(&http.Response{
+				api: newAPI(Development, WithCustomHttpClient(newMockHTTPClient(&http.Response{
 					StatusCode: http.StatusOK,
 					Body:       io.NopCloser(strings.NewReader(`{"bit0":true,"bit1":false,"last_update_time":"2006-01"}`)),
-				}), Development),
+				}))),
 				cred: NewCredentialFile("revoked_private_key.p8"),
 				jwt:  newJWT("issuer", "keyID"),
 			},
@@ -147,10 +147,10 @@ func TestClient_QueryTwoBits(t *testing.T) {
 		},
 		"status ok with invalid response": {
 			client: Client{
-				api: newAPIWithHTTPClient(newMockHTTPClient(&http.Response{
+				api: newAPI(Development, WithCustomHttpClient(newMockHTTPClient(&http.Response{
 					StatusCode: http.StatusOK,
 					Body:       io.NopCloser(iotest.ErrReader(errors.New("io.Reader error"))),
-				}), Development),
+				}))),
 				cred: NewCredentialFile("revoked_private_key.p8"),
 				jwt:  newJWT("issuer", "keyID"),
 			},

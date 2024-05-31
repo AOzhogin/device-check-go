@@ -44,10 +44,10 @@ func TestClient_ValidateDeviceToken(t *testing.T) {
 		},
 		"status ok": {
 			client: Client{
-				api: newAPIWithHTTPClient(newMockHTTPClient(&http.Response{
+				api: newAPI(Development, WithCustomHttpClient(newMockHTTPClient(&http.Response{
 					StatusCode: http.StatusOK,
 					Body:       io.NopCloser(strings.NewReader("success")),
-				}), Development),
+				}))),
 				cred: NewCredentialFile("revoked_private_key.p8"),
 				jwt:  newJWT("issuer", "keyID"),
 			},
